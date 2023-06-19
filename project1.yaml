@@ -1,0 +1,39 @@
+---
+- name: Installing apache web server
+  hosts: web_server_group
+  become: yes
+
+  tasks:
+  
+    - name: httpd Install
+      yum:
+        name: httpd
+        state: present
+  
+    - name: start and enable httpd
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    
+
+- name: Installing database server 
+  hosts: database_server
+  become: yes
+
+  tasks:
+    - name: install database 
+      yum:
+        name: mariadb-server
+        state: present
+
+    - name: start and enable mariadb-server
+      service:
+        name: mariadb
+        state: started
+        enabled: yes 
+
+
+
+
