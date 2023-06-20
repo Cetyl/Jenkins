@@ -1,0 +1,55 @@
+---
+- name: Installing apache web server
+  hosts: web_server_group
+  become: yes 
+
+  tasks:
+
+    - name: httpd Install
+      yum:
+        name: httpd
+        state: present
+
+    - name: start and enable httpd
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: copy the index file
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+
+
+
+
+- name: installing database server
+  hosts: database_group
+  become: yes
+  
+ 
+
+  tasks:
+
+    - name: database Install
+      yum:
+        name: mariadb-server
+        state: present
+
+    - name: start and enable database
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+
+    - name: Create a new database with name "{{dbname}}"
+      mysql_db:
+        name: "{{dbname}}"
+        state: present
+
+    - name: Create database user "{{dbuser}}"
+      mysql_user:
+        name: "{{dbuser}}"
+        password: "{{dbpass}}"
+                                               

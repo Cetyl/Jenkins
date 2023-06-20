@@ -1,0 +1,16 @@
+---
+- name: using loops to install
+  hosts: all
+  become: yes
+  tasks:
+    - name: installing all using loops
+      yum:
+        name: "{{item}}"
+        state: present
+      when: ansible_distribution == "CentOS" 
+      loop:
+         - ntp
+         - wget
+         - unzip 
+         - git
+         - zip  

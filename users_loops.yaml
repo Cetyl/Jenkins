@@ -1,0 +1,32 @@
+---
+- name: using loops to install
+  hosts: all
+  become: yes
+  tasks:
+    - name: installing all using loops
+      yum:
+        name: "{{item}}"
+        state: present
+      when: ansible_distribution == "CentOS"
+      loop:
+         - ntp
+         - wget
+         - unzip
+         - git
+         - zip
+    
+    - name: Ensure group "somegroup" exists
+      ansible.builtin.group:
+        name: devops
+        state: present     
+
+    - name: adding users
+      user:
+        name: "{{item}}"
+        state: present
+        groups: devops
+      loop:
+         - user1
+         - user2
+         - user3
+         - user4   

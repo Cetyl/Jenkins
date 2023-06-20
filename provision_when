@@ -1,0 +1,17 @@
+---
+- name: provisioning ntp server
+  hosts: all
+  become: yes
+  tasks:
+    - name: installing ntp server
+      yum:
+        name: ntp
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: start and enable ntp
+      service:
+        name: ntpd
+        state: started
+        enabled: yes
+      when: ansible_os_family == "RedHat"

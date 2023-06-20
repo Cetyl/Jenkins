@@ -1,0 +1,25 @@
+---
+- name: name of the variable
+  hosts: all
+  become: yes
+  tasks:
+    - name: debug the variable name
+      debug:
+         var: "ansible_distribution"
+
+    - name: debug the variable name
+      debug:
+         var: "ansible_system"
+
+    - name: debug the variable name
+      debug:
+         var: "ansible_date_time.weekday"
+
+
+    - name: debug the variable name
+      debug:
+         var: "ansible_default_ipv4.type"
+
+    - name: debug the variable name
+      debug:
+         var: ansible_processor[2]
