@@ -1,0 +1,16 @@
+---
+- name: editing motd file
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: banner file
+      copy:
+        content: " this {{ansible_distribution}} is managed by ansible "
+        dest: /etc/motd
+
+    - name: deploy ntp conf file
+      template:
+        src: templates/ntp.conf.j2
+        dest: /etc/ntp.conf
+      when: ansible_distribution == "CentOS"
